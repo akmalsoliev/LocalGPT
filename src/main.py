@@ -3,15 +3,17 @@ import json
 from util import (
     streamlit_start,
     check_files,
+    greetings,
+    display_messages
 )
 
-from dotenv import load_dotenv
 import streamlit as st
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import (
-    SystemMessage,
     HumanMessage,
     AIMessage,
+    messages_to_dict,
+    messages_from_dict,
 )
 
 
@@ -21,21 +23,21 @@ def main():
 
     with open("config/settings.json", "r") as file:
         system_message_json = json.load(file)
-    sys_message = SystemMessage(content=system_message_json["content"])
-
-    # init ChatGPT
-    chat = ChatOpenAI(
-        model="gpt-3.5-turbo",
-        temperature=.7,
-    )
+    sys_message_str = system_message_json["content"]
+    ai_greetings = greetings(sys_message_str)
 
     # First of sequential run
     if "messages" not in st.session_state:
         st.session_state.messages = [
-            sys_message,
+            ai_greetings
         ]
 
-    
+    # init ChatGPT
+    chat = ChatOpenAI(
+        model="gpt-3.5-turbo",
+        temperature=1,
+    )
+
     prompt = st.chat_input("Say something...")
     if prompt:
         human_message = HumanMessage(content=prompt)
@@ -49,15 +51,6 @@ def main():
 
     display_messages()
 
-
-def display_messages():
-    for message in st.session_state.messages:
-        if type(message) in [SystemMessage, AIMessage]:
-            with st.chat_message("assistant"):
-                st.write(message.content)
-        elif type(message) == HumanMessage:
-            with st.chat_message("user"):
-                st.write(message.content)
 
 if __name__ == "__main__":
     main()

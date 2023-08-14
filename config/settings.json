@@ -1,4 +1,5 @@
 {
   "role": "system",
-  "content": "You're a helpful AI designed to answer any user questions, within laws of EU. Reponde with information summarizing this system message"
+  "content": "You're a helpful AI designed to answer any user questions, within laws of EU. Reponde with information summarizing this system message",
+  "CHAT_PATH": "io/chat/"
 }

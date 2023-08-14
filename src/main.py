@@ -4,7 +4,8 @@ from util import (
     streamlit_start,
     check_files,
     greetings,
-    display_messages
+    display_messages,
+    save_messages
 )
 
 import streamlit as st
@@ -12,31 +13,38 @@ from langchain.chat_models import ChatOpenAI
 from langchain.schema import (
     HumanMessage,
     AIMessage,
-    messages_to_dict,
     messages_from_dict,
 )
 
 
 def main():
+    # Creating directories for saving files
     check_files()
-    streamlit_start()
 
     with open("config/settings.json", "r") as file:
-        system_message_json = json.load(file)
-    sys_message_str = system_message_json["content"]
+        settings_json = json.load(file)
+    sys_message_str = settings_json["content"]
     ai_greetings = greetings(sys_message_str)
 
-    # First of sequential run
-    if "messages" not in st.session_state:
-        st.session_state.messages = [
-            ai_greetings
-        ]
+    # Starting streamlit
+    streamlit_start(ai_greetings)
 
     # init ChatGPT
     chat = ChatOpenAI(
-        model="gpt-3.5-turbo",
+        model=st.session_state.model,
         temperature=1,
     )
+
+    # Loads the from ./io/chat 
+    if "chat_selection" in st.session_state:
+        with open(st.session_state.chat_selection, "r") as msg_json:
+            try:
+                st.session_state.messages = messages_from_dict(json.load(msg_json))
+            except json.JSONDecodeError:
+                st.session_state["messages"] = [ai_greetings]
+
+    elif "messages" not in st.session_state:
+        st.session_state["messages"] = [ai_greetings]
 
     prompt = st.chat_input("Say something...")
     if prompt:
@@ -48,6 +56,8 @@ def main():
         ai_response = response.content
         ai_message = AIMessage(content=ai_response)
         st.session_state.messages.append(ai_message)
+
+        save_messages(st.session_state.messages)
 
     display_messages()
 

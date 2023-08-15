@@ -34,7 +34,6 @@ def streamlit_start(greetings_msg):
             for _, _, f in os.walk(CHAT_PATH):
                 if f:
                     files = f
-                    files.reverse()
 
             if len(files) > 0:
                 st.divider()

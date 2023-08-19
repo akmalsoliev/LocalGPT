@@ -1,4 +1,5 @@
 import json
+import os 
 
 from util import (
     streamlit_start,
@@ -18,8 +19,11 @@ from langchain.schema import (
 
 
 def main():
+
+    ABSOLUTE_PATH = os.path.dirname(os.path.abspath(__file__))
+
     # Creating directories for saving files
-    check_files()
+    check_files(ABSOLUTE_PATH)
 
     with open("config/settings.json", "r") as file:
         settings_json = json.load(file)

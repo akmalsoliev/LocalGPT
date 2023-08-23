@@ -38,7 +38,7 @@ def streamlit_start(greetings_msg):
                 st.divider()
                 st.write("Historical Chat:")
 
-            if len(files) > 20:
+            if len(files) > 21:
                 delete_file = files[-1]
                 os.remove(delete_file)
 

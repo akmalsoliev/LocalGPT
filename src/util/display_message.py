@@ -13,9 +13,10 @@ def display_messages():
             if index > 1:
                 if st.button("Export Markdown", key=index):
                     name = message.content[:30]
-                    file_name = os.path.join("io", "markdown", f"{name}.json")
+                    file_name = os.path.join("io", "markdown", f"{name}.md")
                     with open(file_name, "w") as f:
                         f.write(message.content)
+                    st.write("Export Successfully!")
 
         elif type(message) == HumanMessage:
             with st.chat_message("user"):

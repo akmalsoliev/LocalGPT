@@ -10,8 +10,8 @@ def display_messages():
         if type(message) in [AIMessage]:
             with st.chat_message("assistant"):
                 st.write(message.content)
-            if index > 2:
-                if st.button("Export Markdown"):
+            if index > 1:
+                if st.button("Export Markdown", key=index):
                     name = message.content[:30]
                     file_name = os.path.join("io", "markdown", f"{name}.json")
                     with open(file_name, "w") as f:

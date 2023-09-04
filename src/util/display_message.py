@@ -4,19 +4,33 @@ from langchain.schema import (
     AIMessage,
     HumanMessage
 )
+import markdown2
+import pdfkit
 
 def display_messages():
     for index, message in enumerate(st.session_state.messages):
         if type(message) in [AIMessage]:
             with st.chat_message("assistant"):
                 st.write(message.content)
+
             if index > 1:
-                if st.button("Export Markdown", key=index):
-                    name = message.content[:30]
-                    file_name = os.path.join("io", "markdown", f"{name}.md")
-                    with open(file_name, "w") as f:
-                        f.write(message.content)
-                    st.write("Export Successfully!")
+                col1, col2 = st.columns(2, gap="small")
+
+                with col1:
+                    if st.button("Export Markdown", key=f"emd-{index}"):
+                        name = message.content[:30]
+                        file_name = os.path.join("io", "markdown", f"{name}.md")
+                        with open(file_name, "w") as f:
+                            f.write(message.content)
+                        st.write("Export Successfully!")
+
+                with col2:
+                    if st.button("Export PDF", key=f"epdf-{index}"):
+                        name = message.content[:30]
+                        md_content = markdown2.markdown(message.content)
+                        file_name = os.path.join("io", "pdf", f"{name}.pdf")
+                        pdfkit.from_string(md_content, file_name)
+                        st.write("Export Successfully!")
 
         elif type(message) == HumanMessage:
             with st.chat_message("user"):

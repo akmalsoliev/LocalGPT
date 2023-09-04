@@ -22,6 +22,11 @@ def streamlit_start(greetings_msg):
                 del st.session_state["chat_selection"]
         st.divider()
 
+        # Temperature 
+        st.session_state.temperature = st.slider(
+            "Model temperature",
+            .0, 1., 1.,
+        )
         # Model selection 
         st.session_state.model = st.selectbox(
             "Select the GPT model",

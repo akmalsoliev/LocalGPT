@@ -38,7 +38,7 @@ def main():
     # init ChatGPT
     chat = ChatOpenAI(
         model=st.session_state.model,
-        temperature=1,
+        temperature=st.session_state.temperature,
     )
 
     # Loads the from ./io/chat 

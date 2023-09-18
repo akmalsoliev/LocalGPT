@@ -2,3 +2,4 @@ langchain[llms]==0.0.263
 openai==0.27.8
 python-dotenv==1.0.0
 streamlit==1.25.0
+pyperclip==1.8.2

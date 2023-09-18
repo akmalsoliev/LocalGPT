@@ -6,6 +6,7 @@ from langchain.schema import (
 )
 import markdown2
 import pdfkit
+import pyperclip
 
 def display_messages():
     for index, message in enumerate(st.session_state.messages):
@@ -14,7 +15,7 @@ def display_messages():
                 st.write(message.content)
 
             if index > 1:
-                col1, col2 = st.columns(2, gap="small")
+                col1, col2, col3 = st.columns(3, gap="small")
 
                 with col1:
                     if st.button("Export Markdown", key=f"emd-{index}"):
@@ -31,6 +32,10 @@ def display_messages():
                         file_name = os.path.join("io", "pdf", f"{name}.pdf")
                         pdfkit.from_string(md_content, file_name)
                         st.write("Export Successfully!")
+
+                with col3:
+                    if st.button("Copy", key=f"copy-{index}"):
+                        pyperclip.copy(message.content)
 
         elif type(message) == HumanMessage:
             with st.chat_message("user"):

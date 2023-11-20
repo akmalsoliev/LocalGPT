@@ -10,7 +10,7 @@ def streamlit_start(greetings_msg):
     )
     st.header("Your own ChatGPT 🤖")
 
-    MODELS = ["gpt-3.5-turbo", "gpt-4"]
+    MODELS = ["gpt-4", "gpt-4-1106-preview", "gpt-3.5-turbo-1106"]
     CHAT_PATH = "io/chat"
 
     with st.sidebar:

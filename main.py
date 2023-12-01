@@ -1,7 +1,7 @@
 import json
 import os 
 
-from util import (
+from src.util import (
     streamlit_start,
     check_files,
     greetings,
@@ -27,7 +27,7 @@ def main():
 
     with open(os.path.join(ABSOLUTE_PATH, "config", "system_message.txt"), "r") as f:
         sys_message_str = f.readline()
-    ai_greetings = greetings(sys_message_str)
+    ai_greetings = greetings(sys_message_str, ABSOLUTE_PATH)
 
     # Starting streamlit
     streamlit_start(ai_greetings)

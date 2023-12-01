@@ -8,4 +8,4 @@ set: # Sets up the required files and directories
 	mkdir -p io/pdf
 
 up: # Start streamlit
-	@streamlit run src/main.py
+	@streamlit run main.py

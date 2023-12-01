@@ -5,9 +5,8 @@ import json
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import (SystemMessage, AIMessage)
 
-def greetings(system_message:str) -> AIMessage:
-    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-    cache_path = Path().joinpath(ROOT_DIR, "config", "system_messages.json")
+def greetings(system_message:str, ABSOLUTE_PATH:str) -> AIMessage:
+    cache_path = Path().joinpath(ABSOLUTE_PATH, "config", "system_messages.json")
     
     with open(cache_path, "r") as json_file:
         cached_messages = json.load(json_file)

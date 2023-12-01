@@ -12,7 +12,3 @@ def check_files(absolute_path):
     IO_CHAT_PATH = os.path.join(absolute_path, "io", "chat")
     if not os.path.exists(IO_CHAT_PATH):
         os.makedirs(IO_CHAT_PATH)
-
-    IO_MARKDOWN_PATH = os.path.join(absolute_path, "io", "markdown")
-    if not os.path.exists(IO_MARKDOWN_PATH):
-        os.makedirs(IO_MARKDOWN_PATH)

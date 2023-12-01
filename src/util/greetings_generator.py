@@ -6,12 +6,16 @@ from langchain.chat_models import ChatOpenAI
 from langchain.schema import (SystemMessage, AIMessage)
 
 def greetings(system_message:str, ABSOLUTE_PATH:str) -> AIMessage:
-    cache_path = Path().joinpath(ABSOLUTE_PATH, "config", "system_messages.json")
+    cache_path = Path().joinpath(ABSOLUTE_PATH, "config")
+    file_path = os.path.join(cache_path, "system_messages.json")
 
-    if not cache_path.exists():
-        os.makedirs(cache_path)
+    if not os.path.exists(file_path):
+        os.makedirs(cache_path, exist_ok=True)
+        os.system(f"touch {file_path}")
+        echo_cmd = r"echo {} >> " + file_path
+        os.system(echo_cmd)
     
-    with open(cache_path, "r") as json_file:
+    with open(file_path, "r") as json_file:
         cached_messages = json.load(json_file)
 
     keys = list(cached_messages.keys())
@@ -31,7 +35,7 @@ def greetings(system_message:str, ABSOLUTE_PATH:str) -> AIMessage:
 
         cached_messages[system_message] = content
 
-        with open(cache_path, "w") as json_write:
+        with open(file_path, "w") as json_write:
             json.dump(cached_messages, json_write)
 
         return AIMessage(content=content)

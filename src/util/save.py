@@ -1,11 +1,20 @@
 import json
+import os
 
 from langchain.schema import messages_to_dict
 
 
 def save_messages(messages:list):
     list_msg = messages_to_dict(messages)
-    with open("config/settings.json", "r") as file:
+
+    file_path = os.path.join("config", "settings.json")
+
+    if not os.path.exists(file_path):
+        os.makedirs("config", exist_ok=True)
+        os.system(f"touch {file_path}")
+        echo_cmd = r"echo {} >> " + file_path
+        os.system(echo_cmd)
+    with open(file_path, "r") as file:
         settings_json = json.load(file)
 
     file_name = None

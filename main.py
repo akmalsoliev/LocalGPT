@@ -3,7 +3,7 @@ import os
 
 from src.util import (
     streamlit_start,
-    check_files,
+    check_api_key,
     greetings,
     display_messages,
     save_messages
@@ -19,21 +19,14 @@ from langchain.schema import (
 
 
 def main():
+    # Creating directories for saving files
+    check_api_key()
 
     ABSOLUTE_PATH = os.path.dirname(os.path.abspath(__file__))
 
-    # Creating directories for saving files
-    check_files(ABSOLUTE_PATH)
-
     # Setting `system_message.txt`
     sys_msg_path = os.path.join(ABSOLUTE_PATH, "config")
-    if not os.path.exists(sys_msg_path):
-        os.makedirs(sys_msg_path)
-
     sys_msg_file = os.path.join(sys_msg_path, "system_message.txt")
-    if not os.path.exists(sys_msg_file):
-        raise FileNotFoundError("system_message.txt doesn't exist please set it")
-
     with open(sys_msg_file, "r") as f:
         sys_message_str = f.readline()
 

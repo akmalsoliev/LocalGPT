@@ -9,11 +9,6 @@ def save_messages(messages:list):
 
     file_path = os.path.join("config", "settings.json")
 
-    if not os.path.exists(file_path):
-        os.makedirs("config", exist_ok=True)
-        os.system(f"touch {file_path}")
-        echo_cmd = r"echo {} >> " + file_path
-        os.system(echo_cmd)
     with open(file_path, "r") as file:
         settings_json = json.load(file)
 

@@ -23,6 +23,14 @@ set: # Sets up the required files and directories
 		echo "$$message" >> config/system_message.txt; \
 	fi
 
+	@if [ ! -f config/settings.json ]; then \
+		touch config/settings.json; \
+		echo '{}' >> config/settings.json; \
+	fi
+
+	@if [ ! -d io/chat ]; then \
+		mkdir -p io/chat; \
+	fi
 
 up: # Start streamlit
 	@streamlit run --global.developmentMode False --server.headless True --server.allowRunOnSave False --theme.base dark main.py

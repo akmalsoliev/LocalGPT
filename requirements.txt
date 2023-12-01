@@ -1,8 +1,5 @@
-langchain==0.0.335
-markdown2==2.4.10
-pdfkit==1.0.0
-pyperclip==1.8.2
-python-dotenv==1.0.0
-streamlit==1.25.0
-watchdog==3.0.0
+langchain>=0.0.335
+python-dotenv>=1.0.0
+streamlit>=1.25.0
+watchdog>=3.0.0
 openai

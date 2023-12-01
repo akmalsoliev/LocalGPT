@@ -35,3 +35,5 @@ set: # Sets up the required files and directories
 up: # Start streamlit
 	@streamlit run --global.developmentMode False --server.headless True --server.allowRunOnSave False --theme.base dark main.py
 
+aws-up: # Continuesly run streamlit on aws
+	@nohup streamlit run --global.developmentMode False --server.headless True --server.allowRunOnSave False --theme.base dark main.py

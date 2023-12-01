@@ -6,4 +6,5 @@ set: # Sets up the required files and directories
 	mkdir -p io/chat
 
 up: # Start streamlit
-	@streamlit run main.py
+	@streamlit run --global.developmentMode False --server.headless True --server.allowRunOnSave False --theme.base dark main.py
+

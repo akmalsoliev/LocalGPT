@@ -25,10 +25,7 @@ def main():
     # Creating directories for saving files
     check_files(ABSOLUTE_PATH)
 
-    #with open("config/settings.json", "r") as file:
-    #    settings_json = json.load(file)
-    #sys_message_str = settings_json["content"]
-    with open(os.path.join("config", "system_message.txt"), "r") as f:
+    with open(os.path.join(ABSOLUTE_PATH, "config", "system_message.txt"), "r") as f:
         sys_message_str = f.readline()
     ai_greetings = greetings(sys_message_str)
 

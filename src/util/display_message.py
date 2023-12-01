@@ -9,6 +9,7 @@ import pdfkit
 import pyperclip
 
 def display_messages():
+    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
     for index, message in enumerate(st.session_state.messages):
         if type(message) in [AIMessage]:
             with st.chat_message("assistant"):
@@ -20,7 +21,7 @@ def display_messages():
                 with col1:
                     if st.button("Export Markdown", key=f"emd-{index}"):
                         name = message.content[:30]
-                        file_name = os.path.join("io", "markdown", f"{name}.md")
+                        file_name = os.path.join(ROOT_DIR, "io", "markdown", f"{name}.md")
                         with open(file_name, "w") as f:
                             f.write(message.content)
                         st.write("Export Successfully!")
@@ -29,7 +30,7 @@ def display_messages():
                     if st.button("Export PDF", key=f"epdf-{index}"):
                         name = message.content[:30]
                         md_content = markdown2.markdown(message.content)
-                        file_name = os.path.join("io", "pdf", f"{name}.pdf")
+                        file_name = os.path.join(ROOT_DIR, "io", "pdf", f"{name}.pdf")
                         pdfkit.from_string(md_content, file_name)
                         st.write("Export Successfully!")
 

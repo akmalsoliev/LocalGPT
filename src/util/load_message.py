@@ -10,10 +10,3 @@ def load_sys_message(sys_message_path, json_path):
 
     with open(json_path, "w") as f:
         json.dump(json_file, f)
-    
-
-if __name__ == "__main__":
-    sys_path = "config/system_message.txt"
-    json_path = "config/settings.json"
-    load_sys_message(sys_path, json_path)
-

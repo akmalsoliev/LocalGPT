@@ -22,7 +22,8 @@ def save_messages(messages:list):
                 file_name = " ".join(cleaned_name)
                 break
     
-    CHAT_PATH = settings_json.get("CHAT_PATH", "io/chat")
+    default_path = os.path.join("io", "chat")
+    CHAT_PATH = settings_json.get("CHAT_PATH", default_path)
     if file_name:
         file_dir = f"{CHAT_PATH}/{file_name}.json"
         with open(file_dir, "w") as json_file:

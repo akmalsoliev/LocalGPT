@@ -32,8 +32,23 @@ set: # Sets up the required files and directories
 		mkdir -p io/chat; \
 	fi
 
+set_env:
+	@if [ ! -f venv ]; then \
+		python -m venv .venv; \
+		.venv/bin/pip3 install --upgrade pip; \
+		.venv/bin/pip3 install -r requirements.txt; \
+	fi;
+
 up: # Start streamlit
-	@streamlit run --global.developmentMode False --server.headless True --server.allowRunOnSave False --theme.base dark main.py
+	@.venv/bin/python3 -m streamlit run \
+		--global.developmentMode False \
+		--server.headless True \
+		--server.allowRunOnSave False \
+		--theme.base dark main.py
 
 aws-up: # Continuesly run streamlit on aws
-	@nohup streamlit run --global.developmentMode False --server.headless True --server.allowRunOnSave False --theme.base dark main.py
+	@nohup streamlit run 
+		--global.developmentMode False \
+		--server.headless True \
+		--server.allowRunOnSave False \
+		--theme.base dark main.py

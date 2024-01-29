@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 import json 
 
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.schema import (SystemMessage, AIMessage)
 
 def greetings(system_message:str, ABSOLUTE_PATH:str) -> AIMessage:
